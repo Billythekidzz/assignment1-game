@@ -22,36 +22,41 @@ public class FlashlightToggle : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CurrentTime += 0.3;
-        if(Insanity > 0)
+        if (isOn)
         {
-            Timer = 120 / Insanity;
-        }
-        if (CurrentTime > 61)
-        {
-            CurrentTime = 0;
-        }
-
-        if (Flicker == false)
-        {
-            if (CurrentTime > Timer - 1)
+            CurrentTime += 0.3;
+            if (Insanity > 0)
             {
-                //Debug.Log("DOES IT");
-                lightGO.SetActive(false);
-                Flicker = true;
+                Timer = 120 / Insanity;
+            }
+            if (CurrentTime > 61)
+            {
                 CurrentTime = 0;
             }
 
-        } else
-        {
-            if (CurrentTime > Timer/4)
+            if (Flicker == false)
             {
-                //Debug.Log("How Quick");
-                lightGO.SetActive(true);
-                Flicker = false;
-                CurrentTime = 0;
+                if (CurrentTime > Timer - 1)
+                {
+                    //Debug.Log("DOES IT");
+                    lightGO.SetActive(false);
+                    Flicker = true;
+                    CurrentTime = 0;
+                }
+
+            }
+            else
+            {
+                if (CurrentTime > Timer / 4)
+                {
+                    //Debug.Log("How Quick");
+                    lightGO.SetActive(true);
+                    Flicker = false;
+                    CurrentTime = 0;
+                }
             }
         }
+       
             
     
         //toggle flashlight on key down
@@ -62,13 +67,14 @@ public class FlashlightToggle : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.X))
         {
-            //toggle light
-            isOn = !isOn;
-            //turn light on
+            
             
             if (Flicker == false)
                 if (CurrentTime < Timer)
                 {
+                    //toggle light
+                    //turn light on
+                    isOn = !isOn;
                     if (isOn)
                     {
                         lightGO.SetActive(true);
