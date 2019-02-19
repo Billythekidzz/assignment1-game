@@ -31,8 +31,6 @@ namespace OVRTouchSample
 
         public const float TRIGGER_DEBOUNCE_TIME = 0.05f;
         public const float THUMB_DEBOUNCE_TIME = 0.15f;
-		public GameObject Player;
-		public int movementSpeed;
 
         [SerializeField]
         private OVRInput.Controller m_controller;
@@ -96,20 +94,8 @@ namespace OVRTouchSample
 
             bool collisionEnabled = m_grabber.grabbedObject == null && flex >= THRESH_COLLISION_FLEX;
             CollisionEnable(collisionEnabled);
-			if(OVRInput.Get(OVRInput.Button.DpadUp, OVRInput.Controller.Gamepad)) {
-				Player.transform.position += transform.forward * movementSpeed;
-				Debug.Log("Does it ever get here ffs 2nd");
-			}
-			if(OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, OVRInput.Controller.Touch) > 0) {
-				Player.transform.position += transform.forward * movementSpeed;
-				Debug.Log("Does it ever get here ffs 3nd");
-			}
+
             UpdateAnimStates();
-			if(OVRInput.Get(OVRInput.Button.One)){
-				Player.transform.position += transform.forward * movementSpeed;
-				print("Do we get here");
-				Debug.Log("Does it ever get here ffs");
-			}
         }
 
         // Just checking the state of the index and thumb cap touch sensors, but with a little bit of
