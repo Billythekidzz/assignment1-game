@@ -17,17 +17,9 @@ public class FlashlightToggle : MonoBehaviour
     public float insanityIncreaseInterval = 1.0f; //time it takes for insanity to increase in seconds (Decrease to make insanity increase faster)
     private float time = 0.0f;
     public float flickerChanceInterval = 1.0f; //Lights will have a chance to flicker after this many seconds (decrease for more frequent flickers)
-    public float jumpScareInterval = 1.0f;
-    private float jumpScareTime = 0.0f;
     private float flickerTime = 0.0f;
     private string currentlyPlaying;
-    public GameObject scareImage1;
-    public GameObject scareImage2;
-    private GameObject activateImage;
-    private bool jumpScare = false;
-    private float scareTime = 0.0f;
-    private float jumpDuration = 0.1f;
-    AudioSource[] audio;
+    public new AudioSource[] audio;
     // Use this for initialization
     void Start()
     {
@@ -40,7 +32,6 @@ public class FlashlightToggle : MonoBehaviour
     void Update()
     {
         //if close to campfire decrease currentInsanity 3x quicker then you do increase currentInsanity
-        /*
         if (Vector3.Distance(transform.position, CheckCloseTo.transform.position) < Range)
         {
             if(currentInsanity > 0)
@@ -54,62 +45,66 @@ public class FlashlightToggle : MonoBehaviour
                 
             }
         }
-        */
+
 
         if (isOn)
-        if(currentInsanity < MAX_INSANITY)
         {
-            time += Time.deltaTime;
-            if (time >= insanityIncreaseInterval)
+
+       
+            if(currentInsanity < MAX_INSANITY)
             {
-                time = 0.0f;
-                currentInsanity += 1;
-                if(currentInsanity < 20)
+                time += Time.deltaTime;
+                if (time >= insanityIncreaseInterval)
                 {
-                    if(currentlyPlaying != "stageone")
+                    time = 0.0f;
+                    currentInsanity += 1;
+                    if(currentInsanity < 20)
                     {
-                        currentlyPlaying = "stageone";
-                        audio[5].Stop();
-                        audio[6].Play();
+                        if(currentlyPlaying != "stageone")
+                        {
+                            currentlyPlaying = "stageone";
+                            audio[5].Stop();
+                            audio[6].Play();
+                        }
                     }
-                }
-                if (currentInsanity >= 20 && currentInsanity < 40)
-                {
-                    if (currentlyPlaying != "stagetwo")
+                    if (currentInsanity >= 20 && currentInsanity < 40)
                     {
-                        currentlyPlaying = "stagetwo";
-                        audio[6].Stop();
-                        audio[4].Stop();
-                        audio[5].Play();
+                        if (currentlyPlaying != "stagetwo")
+                        {
+                            currentlyPlaying = "stagetwo";
+                            audio[6].Stop();
+                            audio[4].Stop();
+                            audio[5].Play();
+                        }
                     }
-                }
-                if (currentInsanity >= 40 && currentInsanity < 60)
-                {
-                    if (currentlyPlaying != "stagethree")
+                    if (currentInsanity >= 40 && currentInsanity < 60)
                     {
-                        currentlyPlaying = "stagethree";
-                        audio[5].Stop();
-                        audio[3].Stop();
-                        audio[4].Play();
+                        if (currentlyPlaying != "stagethree")
+                        {
+                            currentlyPlaying = "stagethree";
+                            audio[5].Stop();
+                            audio[3].Stop();
+                            audio[4].Play();
+                        }
                     }
-                }
-                if (currentInsanity >= 60 && currentInsanity < 80)
-                {
-                    if (currentlyPlaying != "stagefour")
+                    if (currentInsanity >= 60 && currentInsanity < 80)
                     {
-                        currentlyPlaying = "stagefour";
-                        audio[4].Stop();
-                        audio[2].Stop();
-                        audio[3].Play();
+                        if (currentlyPlaying != "stagefour")
+                        {
+                            currentlyPlaying = "stagefour";
+                            audio[4].Stop();
+                            audio[2].Stop();
+                            audio[3].Play();
+                        }
                     }
-                }
-                if (currentInsanity >= 80)
-                {
-                    if (currentlyPlaying != "stagefive")
+                    if (currentInsanity >= 80)
                     {
-                        currentlyPlaying = "stagefive";
-                        audio[3].Stop();
-                        audio[2].Play();
+                        if (currentlyPlaying != "stagefive")
+                        {
+                            currentlyPlaying = "stagefive";
+                            audio[3].Stop();
+                            audio[2].Play();
+                        }
                     }
                 }
             }
@@ -127,7 +122,7 @@ public class FlashlightToggle : MonoBehaviour
                     {
                         turnLightOff();
                         Flicker = true;
-                        Timer = Random.Range(100.0f, 250.0f / (1 + currentInsanity / 10));
+                        Timer = Random.Range(100.0f, 250.0f / (currentInsanity / 10));
                         CurrentTime = 0;
                     }
                 }
@@ -178,43 +173,7 @@ public class FlashlightToggle : MonoBehaviour
                     }
                 }
         }
-
-        if (currentInsanity >= 50)
-        {
-            if(jumpScare == false) {
-                jumpScareTime += Time.deltaTime;
-                if (jumpScareTime >= jumpScareInterval)
-                {   
-                    jumpScareTime = 0;
-                    int rand = Random.Range(0, (25 - Mathf.RoundToInt((currentInsanity / 5))));
-                    if (rand == 1)
-                    {
-                        int imageNum = Random.Range(0, 2);
-                        if (imageNum == 0)
-                        {
-                            activateImage = scareImage1;
-                        }
-                        if (imageNum == 1)
-                        {
-                            activateImage = scareImage2;
-                        }
-                        audio[7].Play();
-                        activateImage.SetActive(true);
-                        jumpScare = true;
-                    }
-                }
-            }
-        }
-        if(jumpScare == true)
-        {
-            scareTime += Time.deltaTime;
-            if(scareTime >= jumpDuration)
-            {
-                scareTime = 0;
-                activateImage.SetActive(false);
-                jumpScare = false;
-            }
-        }
+            
     }
     //Call this function to turn the light on
     void turnLightOn()
