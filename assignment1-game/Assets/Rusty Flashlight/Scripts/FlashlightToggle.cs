@@ -31,14 +31,16 @@ public class FlashlightToggle : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Vector3.Distance(transform.position, CheckCloseTo.transform.position) < Range)
+        //if close to campfire decrease currentInsanity 3x quicker then you do increase currentInsanity
+        if (Vector3.Distance(transform.position, CheckCloseTo.transform.position) < Range)
         {
-            if(Insanity > 0)
+            if(currentInsanity > 0)
             {
-            if(CurrentTime > Timer/3)
+                if (time >= insanityIncreaseInterval / 3)
                 {
-                    Insanity -= 1;
+                    currentInsanity -= 1;
                     CurrentTime = 0;
+                    time = 0.0f;
                 }
                 
             }
