@@ -27,6 +27,7 @@ public class FlashlightToggle : MonoBehaviour
     private bool jumpScare = false;
     private float scareTime = 0.0f;
     private float jumpDuration = 0.1f;
+    public LevelChanger levelChanger;
     AudioSource[] audio;
     // Use this for initialization
     void Start()
@@ -64,6 +65,10 @@ public class FlashlightToggle : MonoBehaviour
             {
                 time = 0.0f;
                 currentInsanity += 1;
+                if(currentInsanity == MAX_INSANITY)
+                    {
+                        levelChanger.FadeToLevel(1);
+                    }
                 if(currentInsanity < 20)
                 {
                     if(currentlyPlaying != "stageone")
