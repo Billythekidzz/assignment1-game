@@ -19,7 +19,14 @@ public class FlashlightToggle : MonoBehaviour
     public float flickerChanceInterval = 1.0f; //Lights will have a chance to flicker after this many seconds (decrease for more frequent flickers)
     private float flickerTime = 0.0f;
     private string currentlyPlaying;
-    public new AudioSource[] audio;
+    public GameObject scareImage1;
+    public GameObject scareImage2;
+    private GameObject activateImage;
+    private bool jumpScare = false;
+    private float scareTime = 0.0f;
+    private float jumpDuration = 0.1f;
+    public LevelChanger levelChanger;
+    AudioSource[] audio;
     // Use this for initialization
     void Start()
     {
