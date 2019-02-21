@@ -11,7 +11,8 @@ public class FlashlightToggle : MonoBehaviour
     public double Timer = 120; // The wait time between flashes
     public double CurrentTime = 0; //Current time for the timer;
     public bool Flicker = false;
-
+    public GameObject CheckCloseTo;
+    public int Range = 2;
     // Use this for initialization
     void Start()
     {
@@ -22,6 +23,20 @@ public class FlashlightToggle : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Vector3.Distance(transform.position, CheckCloseTo.transform.position) < Range)
+        {
+            if(Insanity > 0)
+            {
+            if(CurrentTime > Timer/3)
+                {
+                    Insanity -= 1;
+                    CurrentTime = 0;
+                }
+                
+            }
+        }
+
+
         if (isOn)
         {
             CurrentTime += 0.3;
